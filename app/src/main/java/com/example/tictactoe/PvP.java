@@ -17,20 +17,19 @@ public class PvP extends AppCompatActivity
 {
     /*  X=1
         O=0
-        -=2
      */
     int activePlayer = 1;
-    int playCounter = 0;
-    int[] gameState = {2, 3, 4, 5, 6, 7, 8, 9, 10};
-    int[][] winState = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
+    int playCounter = 0;    // Number of turns played
+    int[] gameState = {2, 3, 4, 5, 6, 7, 8, 9, 10};         //Initial Board
+    int[][] winState = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}}; //Possible Win Positions
     boolean gameActive = true;
     MediaPlayer playMedia;
     MediaPlayer playResult;
     boolean isVolumeMuted;
     
-    public void gameReset (View view)
+    public void gameReset (View view)       // Reset Game
     {
-        if ( playResult.isPlaying() )
+        if ( playResult.isPlaying() )       // Result Track
             playResult.stop();
         
         activePlayer = 1;
@@ -45,6 +44,7 @@ public class PvP extends AppCompatActivity
         TextView resetView = findViewById(R.id.resetButton);
         resetView.setText("RESTART GAME");
         
+        // Initializing board resources
         ((ImageView) findViewById(R.id.imageView2)).setImageResource(0);
         ((ImageView) findViewById(R.id.imageView3)).setImageResource(0);
         ((ImageView) findViewById(R.id.imageView4)).setImageResource(0);
@@ -55,6 +55,7 @@ public class PvP extends AppCompatActivity
         ((ImageView) findViewById(R.id.imageView9)).setImageResource(0);
         ((ImageView) findViewById(R.id.imageView10)).setImageResource(0);
         
+        // Initializing board animations
         findViewById(R.id.imageView4).clearAnimation();
         findViewById(R.id.imageView3).clearAnimation();
         findViewById(R.id.imageView2).clearAnimation();
@@ -73,11 +74,11 @@ public class PvP extends AppCompatActivity
         {
             ImageView imageView = (ImageView) view;
             int imageCode = Integer.parseInt(imageView.getTag().toString());
-            if ( gameState[imageCode] >= 2 && gameActive )
+            if ( gameState[imageCode] >= 2 && gameActive )      // If position is vacant
             {
                 playCounter++;
                 
-                if ( activePlayer == 1 )
+                if ( activePlayer == 1 )        // X's Turn
                 {
                     imageView.setImageResource(R.drawable.xfinal);
                     gameState[imageCode] = 1;
@@ -85,7 +86,7 @@ public class PvP extends AppCompatActivity
                     TextView textView = findViewById(R.id.status);
                     textView.setText("O's TURN");
                 }
-                else
+                else    // O's Turn
                 {
                     imageView.setImageResource(R.drawable.oblue);
                     imageView.setPadding(0, 50, 10, 20);
@@ -96,9 +97,9 @@ public class PvP extends AppCompatActivity
                 }
                 String winner;
                 gameActive = winCheck(gameState);
-                if ( gameActive == false )
+                if ( !gameActive )          // If someone wins
                 {
-                    playResult = MediaPlayer.create(this, R.raw.wintrack);
+                    playResult = MediaPlayer.create(this, R.raw.wintrack);  //Play result track
                     if ( isVolumeMuted )
                         playResult.setVolume(0, 0);
                     playResult.start();
@@ -113,7 +114,7 @@ public class PvP extends AppCompatActivity
                     TextView resetView = findViewById(R.id.resetButton);
                     resetView.setText("NEW GAME");
                 }
-                if ( playCounter == 9 && gameActive )
+                if ( playCounter == 9 && gameActive )           // If game is TIE
                 {
                     playResult = MediaPlayer.create(this, R.raw.tietrack);
                     if ( isVolumeMuted )
@@ -134,7 +135,7 @@ public class PvP extends AppCompatActivity
         }
     }
     
-    private boolean winCheck (int[] gameStateClone)
+    private boolean winCheck (int[] gameStateClone)         // Winner Check
     {
         for ( int[] winposition : winState )
         {

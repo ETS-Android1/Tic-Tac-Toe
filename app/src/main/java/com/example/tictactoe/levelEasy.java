@@ -18,10 +18,10 @@ import java.util.Random;
 public class levelEasy extends AppCompatActivity
 {
     int activePlayer = 1;
-    int playCounter = 0;
-    int[] gameState = {2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int playCounter = 0;    // Number of turns played
+    int[] gameState = {2, 3, 4, 5, 6, 7, 8, 9, 10};     //Initial Board
     boolean gameActive = true;
-    int[][] winState = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
+    int[][] winState = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};        //Possible Win Positions
     MediaPlayer playMedia;
     MediaPlayer playResult;
     boolean isVolumeMuted = false;
@@ -29,7 +29,7 @@ public class levelEasy extends AppCompatActivity
     
     public void onGameReset (View view)
     {
-        if ( playResult.isPlaying() )
+        if ( playResult.isPlaying() )       // Result Track Control
             playResult.stop();
         
         activePlayer = 1;
@@ -43,7 +43,8 @@ public class levelEasy extends AppCompatActivity
         
         TextView resetView = findViewById(R.id.resetButton);
         resetView.setText("RESTART GAME");
-        
+    
+        // Initializing board resources
         ((ImageView) findViewById(R.id.imageView2)).setImageResource(0);
         ((ImageView) findViewById(R.id.imageView3)).setImageResource(0);
         ((ImageView) findViewById(R.id.imageView4)).setImageResource(0);
@@ -53,7 +54,8 @@ public class levelEasy extends AppCompatActivity
         ((ImageView) findViewById(R.id.imageView8)).setImageResource(0);
         ((ImageView) findViewById(R.id.imageView9)).setImageResource(0);
         ((ImageView) findViewById(R.id.imageView10)).setImageResource(0);
-        
+    
+        // Initializing board animations
         findViewById(R.id.imageView4).clearAnimation();
         findViewById(R.id.imageView3).clearAnimation();
         findViewById(R.id.imageView2).clearAnimation();
@@ -77,11 +79,11 @@ public class levelEasy extends AppCompatActivity
         {
             ImageView imageView = (ImageView) view;
             int imageCode = Integer.parseInt(imageView.getTag().toString());
-            if ( gameState[imageCode] >= 2 && gameActive )
+            if ( gameState[imageCode] >= 2 && gameActive )      // If position is vacant
             {
                 playCounter++;
                 
-                if ( activePlayer == 1 )
+                if ( activePlayer == 1 )        //X's Turn
                 {
                     imageView.setImageResource(R.drawable.xfinal);
                     gameState[imageCode] = 1;
@@ -91,19 +93,19 @@ public class levelEasy extends AppCompatActivity
                 }
                 
                 gameActive = winCheck();
-                if ( !gameActive )
+                if ( !gameActive )       // If someone WINS
                 {
                     gameActiveIsFalse();
                 }
-                else if ( playCounter == 9 && gameActive )
+                else if ( playCounter == 9 && gameActive )      // In case of TIE
                 {
                     gameIsDraw();
                 }
-                else if ( activePlayer == 0 )
+                else if ( activePlayer == 0 )       //O's Turn
                 {
                     
                     int compTag;
-                    compTag = getCompTag();
+                    compTag = getCompTag();     // Computers Turn
                     
                     LinearLayout layout = findViewById(R.id.linearLayout);
                     ImageView imgview = layout.findViewWithTag(Integer.toString(compTag));
@@ -132,10 +134,10 @@ public class levelEasy extends AppCompatActivity
         }
     }
     
-    public int getCompTag ()
+    public int getCompTag ()        // Computer's Move
     {
         int randomTag;
-        for ( int[] checkWin : winState )
+        for ( int[] checkWin : winState )       // To check if there is a Threat
         {
             int xCount = 0, vacancyPos = 0;
             for ( int i = 0; i < 3; i++ )
@@ -151,7 +153,7 @@ public class levelEasy extends AppCompatActivity
                 return vacancyPos;
             }
         }
-        if ( playCounter == 1 )
+        if ( playCounter == 2 )
         {
             if ( gameState[0] == 1 || gameState[2] == 1 || gameState[6] == 1 || gameState[8] == 1 )
             {
@@ -160,7 +162,7 @@ public class levelEasy extends AppCompatActivity
             }
         }
         
-        else if(playCounter==3 && flag )
+        else if(playCounter==4 && flag )
         {
             if(gameState[3]>=2)
                 return 3;

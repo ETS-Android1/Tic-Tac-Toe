@@ -98,18 +98,6 @@ public class levelHard extends AppCompatActivity
         }
     }
     
-    /*private void delay ()
-    {
-        Calendar now = Calendar.getInstance();
-        int second = now.get(Calendar.SECOND);
-        int pause=second+5;
-        while(second<=pause)
-        {
-            System.out.println(second+" "+pause);
-            Calendar instce = Calendar.getInstance();
-            second = instce.get(Calendar.SECOND);
-        }
-    }*/
     
     private int getBestMove ()
     {

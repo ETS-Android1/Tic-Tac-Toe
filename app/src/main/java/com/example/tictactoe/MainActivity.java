@@ -36,14 +36,14 @@ public class MainActivity extends AppCompatActivity
     public void invokeLevelHard(View view)
     {
         Intent intent=new Intent(this,levelHard.class);
-        intent.putExtra("volumeStatus", isVolumeMuted);
+        intent.putExtra("volumeStatus", isVolumeMuted);     // Volume status
         startActivity(intent);
     }
     
     public void invokeEasy (View view)
     {
         Intent intent = new Intent(this, levelEasy.class);
-        intent.putExtra("volumeStatus", isVolumeMuted);
+        intent.putExtra("volumeStatus", isVolumeMuted);     // Volume status
         startActivity(intent);
     }
     
