@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Tic Tac Toe</string>
+    <string name="grid">Grid</string>
+    <string name="heading">Tic-Tac-Toe</string>
+    <string name="placeholder">ImgPlace</string>
+    <string name="restart">RESTART GAME</string>
+    <string name="title_activity_pv_p">PvP</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="logo">Tic Tac Toe</string>
+    <string name="Title_VsComp">Play Against Computer</string>
+    <string name="Title_VsHuman">Play Against Human</string>
+    <string name="easyMode">Easy Peasy</string>
+    <string name="hardMode">Dare To Win?</string>
+    <string name="againstHuman">PvP Mode</string>
+    <string name="creditHeader">C R E D I T S</string>
+    <string name="creditsGameDev">Game Development :</string>
+    <string name="gameDevName">Rungshit Saha</string>
+    <string name="creditsMusic">Background Music :</string>
+    <string name="musicCreditsName">GameChops</string>
+</resources>
